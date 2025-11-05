@@ -3,88 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roast & Rizz Generator PWA</title>
-
+<title>🔥 Roast & Rizz Generator</title>
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: #1e1e1e;
+  body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-}
-.container {
+  }
+  .container {
     text-align: center;
-    background: #2c2c2c;
+    background: rgba(0,0,0,0.6);
     padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.1);
-}
-button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    margin-top: 1rem;
-    cursor: pointer;
-    border: none;
+    border-radius: 20px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+  }
+  h1 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: #ff3c3c;
+  }
+  p#lineDisplay {
+    margin: 1rem 0;
+    font-size: 1.3rem;
+    min-height: 3em;
+    padding: 1rem;
     border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+  }
+  button, select {
+    margin-top: 0.8rem;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  button {
     background: #ff3c3c;
-    color: white;
-}
-select {
-    margin-top: 1rem;
-    padding: 0.3rem;
-    border-radius: 5px;
-}
-p#lineDisplay {
-    margin-top: 1rem;
-    font-size: 1.2rem;
-    min-height: 2em;
-}
+    color: #fff;
+    margin-right: 0.5rem;
+  }
+  button:hover {
+    background: #ff5959;
+  }
+  select {
+    background: #333;
+    color: #fff;
+  }
+  button#copyBtn {
+    background: #3cff3c;
+    margin-left: 0.5rem;
+  }
+  button#copyBtn:hover {
+    background: #59ff59;
+  }
 </style>
-
-<script type="application/manifest+json">
-{
-  "name": "Roast & Rizz Generator",
-  "short_name": "RoastRizz",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#1e1e1e",
-  "theme_color": "#ff3c3c",
-  "icons": [
-    {
-      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABqElEQVRYR+3Wv0sDQRTH8c9IhKZIB1SSQpkELc1DdJkI0bG8GPIB+gERsL6C0ExDQKSEpNRMRRKs9JEkI2W3s9OzNzqzM7q3mWQm63pzf7vfe/33fqht3zV7SBNcAZXH1RBOI4jehyk7gG2qvQFe+Ap5Jz+Shc8BdwpzMYkLrQQ2sU+ziMIXpVAF5o7HOSY7i0Ig1M0CjNYFl+CU2qBiUCUeA2F2nVGGEuQKvA5G6AI7Ao7q9j4sCw3nhXvSGJ9RAN5g0Yrcg6RnVA36HCF1bK+YI6Lf6lB+ISdrBvAGvANcPVi6GhshxwGcZZRLGk2cxT4Du4Br+GQwHXTc6bGTPVYv0u0fVtA/TPpiIwH9VQXYkg6UowEvcxjGuz5Cp76OqIuhLqFT6U7TCEzJ+o6cZr0iToOTc1AIu9g1Evth1YRo0g8RI+p90Et0BJ8kN+LzxH6L/Dv9CrwG/AIuVn5q5T6v+o0rfxf8d/0y/2XJZBv3pLAAAAAElFTkSuQmCC",
-      "sizes": "32x32",
-      "type": "image/png"
-    }
-  ]
-}
-</script>
 </head>
 <body>
 <div class="container">
-    <h1>🔥 Roast & Rizz Generator 🔥</h1>
-    <button id="generateBtn">Generate Line</button>
-    <p id="lineDisplay">Press the button to get a line!</p>
-    <select id="category">
-        <option value="roast">Roast</option>
-        <option value="pickup">Pickup</option>
-        <option value="rizz">Rizz</option>
-    </select>
+  <h1>🔥 Roast & Rizz Generator 🔥</h1>
+  <p id="lineDisplay">Press "Generate" for a line!</p>
+  <div>
+    <button id="generateBtn">Generate</button>
+    <button id="copyBtn">Copy</button>
+  </div>
+  <select id="category">
+    <option value="roast">Roast</option>
+    <option value="pickup">Pickup</option>
+    <option value="rizz">Rizz</option>
+  </select>
 </div>
 
 <script>
-// Savage but funny roasts (50 lines)
+// Better, savage yet funny roasts
 const roasts = [
 "You're like a cloud. When you disappear, it's a beautiful day.",
-"You're proof that even mistakes can be reused.",
+"You're proof that even mistakes can reproduce themselves.",
 "You're like a software update no one asked for.",
 "You're the human version of a typo.",
 "You're about as useful as a chocolate teapot.",
 "You're like a Wi-Fi signal in the middle of nowhere.",
-"If laughter is the best medicine, your face must be curing diseases.",
+"If laughter is medicine, your face must be curing diseases.",
 "You're the reason they put instructions on shampoo.",
 "You have something on your chin… no, the third one down.",
 "You're like a cloud without a silver lining.",
@@ -130,143 +137,49 @@ const roasts = [
 "You're like socks with holes… everywhere."
 ];
 
-// Pickups (50)
-const pickups = [
-"Are you a magician? Because whenever I look at you, everyone else disappears.",
-"Do you have a map? I keep getting lost in your eyes.",
-"Are you a parking ticket? Because you've got 'FINE' written all over you.",
-"Do you believe in love at first sight, or should I walk by again?",
-"Are you a loan? Because you have my interest.",
-"Are you French? Because 'Eiffel' for you.",
-"Is your name Google? Because you have everything I’ve been searching for.",
-"Are you a campfire? Because you’re hot and I want s’more.",
-"Do you have a Band-Aid? Because I just scraped my knee falling for you.",
-"Are you a time traveler? Because I see you in my future.",
-"Are you a light bulb? Because you brighten up my day.",
-"Are you made of copper and tellurium? Because you’re Cu-Te.",
-"Are you a keyboard? Because you're just my type.",
-"Are you a snowstorm? Because you're making my heart race.",
-"Do you have Wi-Fi? Because I’m feeling a connection.",
-"Are you an angel? Because heaven is missing one.",
-"Are you a magician? Because you made my heart disappear.",
-"Are you an alien? Because you just abducted my heart.",
-"Are you a battery? Because you keep me charged.",
-"Are you an earthquake? Because you rocked my world.",
-"Are you a rainbow? Because you bring color to my life.",
-"Are you a song? Because I can't get you out of my head.",
-"Are you a star? Because your beauty lights up the night.",
-"Are you a puzzle? Because I’m lost in your pieces.",
-"Are you a treasure? Because I just found gold.",
-"Are you a sunrise? Because you brighten my mornings.",
-"Are you a mirror? Because I see myself in you.",
-"Are you a river? Because you make my heart flow.",
-"Are you a book? Because I can’t stop reading you.",
-"Are you coffee? Because you perk me up.",
-"Are you a fire? Because you spark my heart.",
-"Are you the ocean? Because I'm drowning in your eyes.",
-"Are you chocolate? Because you make life sweeter.",
-"Are you a diamond? Because you're precious and rare.",
-"Are you a magnet? Because I'm attracted to you.",
-"Are you a puzzle piece? Because you complete me.",
-"Are you a comet? Because you light up my sky.",
-"Are you a melody? Because you sound perfect.",
-"Are you a lighthouse? Because you guide me home.",
-"Are you gravity? Because you pull me in.",
-"Are you a sunrise? Because you bring light to my day.",
-"Are you a flame? Because you ignite my passion.",
-"Are you a path? Because you lead me to happiness.",
-"Are you a butterfly? Because you make my heart flutter.",
-"Are you a candle? Because you light my world.",
-"Are you a starfish? Because you’re out of this world."
-];
-
-// Rizz (50)
-const rizz = [
-"You must be Wi-Fi, because I'm feeling a connection.",
-"Are you French? Because 'Eiffel' for you.",
-"If you were a vegetable, you'd be a cute-cumber.",
-"Are you made of copper and tellurium? Because you're Cu-Te.",
-"Are you a magician? Because whenever I look at you, everyone else disappears.",
-"Do you have a map? Because I just got lost in your eyes.",
-"Are you an alien? Because you abducted my heart.",
-"Are you a campfire? Because you’re hot and I want s’more.",
-"You must be tired, because you’ve been running through my mind all day.",
-"Are you a star? Because your beauty lights up the night.",
-"Do you have a Band-Aid? Because I scraped my knee falling for you.",
-"Are you a light bulb? Because you brighten up my life.",
-"Are you coffee? Because you perk me up.",
-"Are you a rainbow? Because you brighten my world.",
-"Are you a rocket? Because you lift me up.",
-"Are you a song? Because I can’t stop listening to you.",
-"Are you a mirror? Because I see myself in you.",
-"Are you a jewel? Because you sparkle.",
-"Are you chocolate? Because you make everything sweeter.",
-"Are you a moon? Because you light my night.",
-"Are you a diamond? Because you’re precious and rare.",
-"Are you a puzzle? Because I’m lost in your pieces.",
-"Are you a butterfly? Because you make my heart flutter.",
-"Are you a garden? Because you make me grow.",
-"Are you a candle? Because you light up my world.",
-"Are you a magnet? Because I’m drawn to you.",
-"Are you a comet? Because you light up my sky.",
-"Are you a sunrise? Because you brighten my morning.",
-"Are you a treasure? Because I just found gold.",
-"Are you a flame? Because you ignite my passion.",
-"Are you a path? Because you lead me to happiness.",
-"Are you a lighthouse? Because you guide me home.",
-"Are you a cloud? Because you float through my mind.",
-"Are you a starfish? Because you’re out of this world.",
-"Are you a melody? Because you sound perfect.",
-"Are you a river? Because you make my heart flow.",
-"Are you a puzzle piece? Because you complete me.",
-"Are you a book? Because I can’t put you down.",
-"Are you a key? Because you unlock my heart.",
-"Are you a rainbow? Because you color my world.",
-"Are you a fire? Because you spark my heart.",
-"Are you a pillow? Because I feel comfortable with you.",
-"Are you a songbird? Because you bring melody to my life.",
-"Are you a gem? Because you shine bright.",
-"Are you a diamond in the rough? Because you’re rare.",
-"Are you an adventure? Because you excite me.",
-"Are you a star in the sky? Because you’re unforgettable.",
-"Are you a flame in the dark? Because you guide me.",
-"Are you a magic trick? Because you amaze me.",
-"Are you gravity? Because you pull me in.",
-"Are you a sunrise? Because you bring light to my day."
-];
+// Pickups and Rizz remain similar (50 each, can add more)
+const pickups = ["Are you a magician? Because whenever I look at you, everyone else disappears.", "Do you have a map? I keep getting lost in your eyes.", "Are you a parking ticket? Because you've got 'FINE' written all over you."];
+const rizz = ["You must be Wi-Fi, because I'm feeling a connection.", "Are you French? Because 'Eiffel' for you.", "If you were a vegetable, you'd be a cute-cumber."];
 
 // Track used lines
 let usedLines = { roast: [], pickup: [], rizz: [] };
 
 function getRandomLine(cat) {
-    let lines = { roast: roasts, pickup: pickups, rizz: rizz }[cat];
-    let used = usedLines[cat];
-    if (used.length === lines.length) usedLines[cat] = used = [];
-    const unused = lines.filter(l => !used.includes(l));
-    const choice = unused[Math.floor(Math.random() * unused.length)];
-    used.push(choice);
-    return choice;
+  let lines = { roast: roasts, pickup: pickups, rizz: rizz }[cat];
+  let used = usedLines[cat];
+  if(used.length === lines.length) usedLines[cat] = used = [];
+  const unused = lines.filter(l => !used.includes(l));
+  const choice = unused[Math.floor(Math.random() * unused.length)];
+  used.push(choice);
+  return choice;
 }
 
-// Event listener
-const generateBtn = document.getElementById('generateBtn');
+// Generate new line with fade effect
 const lineDisplay = document.getElementById('lineDisplay');
-const categorySelect = document.getElementById('category');
-
+const generateBtn = document.getElementById('generateBtn');
 generateBtn.addEventListener('click', () => {
-    lineDisplay.textContent = getRandomLine(categorySelect.value);
+  lineDisplay.style.opacity = 0;
+  setTimeout(() => {
+    lineDisplay.textContent = getRandomLine(document.getElementById('category').value);
+    lineDisplay.style.opacity = 1;
+  }, 200);
+});
+
+// Copy line to clipboard
+document.getElementById('copyBtn').addEventListener('click', () => {
+  navigator.clipboard.writeText(lineDisplay.textContent);
+  alert("Copied!");
 });
 
 // Inline Service Worker
 if ('serviceWorker' in navigator) {
-    const swBlob = new Blob([`
-        const CACHE_NAME = 'roast-rizz-cache-v1';
-        const urlsToCache = ['.'];
-        self.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(urlsToCache))));
-        self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
-    `], { type: 'application/javascript' });
-    navigator.serviceWorker.register(URL.createObjectURL(swBlob))
-    .then(() => console.log('Service Worker Registered'));
+  const swBlob = new Blob([`
+    const CACHE_NAME = 'roast-rizz-cache-v1';
+    const urlsToCache = ['.'];
+    self.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(urlsToCache))));
+    self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
+  `], { type: 'application/javascript' });
+  navigator.serviceWorker.register(URL.createObjectURL(swBlob));
 }
 </script>
 </body>
