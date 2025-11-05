@@ -3,183 +3,175 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 Roast & Rizz Generator</title>
+<title>🔥 Roast Bot</title>
 <style>
-  body {
+body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    background: linear-gradient(135deg, #0b0c10, #1f2833, #c5c6c7);
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-  }
-  .container {
+}
+.container {
     text-align: center;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.75);
     padding: 2rem;
     border-radius: 20px;
-    max-width: 400px;
+    max-width: 450px;
     width: 90%;
     box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-  }
-  h1 {
+}
+h1 {
     margin-bottom: 1rem;
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: #ff3c3c;
-  }
-  p#lineDisplay {
-    margin: 1rem 0;
+}
+input, button {
+    margin-top: 0.8rem;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    width: 80%;
+}
+button {
+    margin-top: 1rem;
+    background: #ff3c3c;
+    color: #fff;
+    cursor: pointer;
+}
+button:hover {
+    background: #ff5959;
+}
+p#roastDisplay {
+    margin-top: 1.5rem;
     font-size: 1.3rem;
     min-height: 3em;
     padding: 1rem;
     border-radius: 10px;
     background: rgba(255,255,255,0.1);
     transition: all 0.3s ease;
-  }
-  button, select {
-    margin-top: 0.8rem;
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-  }
-  button {
-    background: #ff3c3c;
-    color: #fff;
-    margin-right: 0.5rem;
-  }
-  button:hover {
-    background: #ff5959;
-  }
-  select {
-    background: #333;
-    color: #fff;
-  }
-  button#copyBtn {
+}
+button#copyBtn {
     background: #3cff3c;
-    margin-left: 0.5rem;
-  }
-  button#copyBtn:hover {
+    margin-top: 0.5rem;
+}
+button#copyBtn:hover {
     background: #59ff59;
-  }
+}
 </style>
 </head>
 <body>
 <div class="container">
-  <h1>🔥 Roast & Rizz Generator 🔥</h1>
-  <p id="lineDisplay">Press "Generate" for a line!</p>
-  <div>
-    <button id="generateBtn">Generate</button>
+    <h1>🔥 Roast Bot 🔥</h1>
+    <input type="text" id="enemyInput" placeholder="What did they say?" />
+    <button id="generateBtn">Generate Roast</button>
+    <p id="roastDisplay">Your savage comeback will appear here!</p>
     <button id="copyBtn">Copy</button>
-  </div>
-  <select id="category">
-    <option value="roast">Roast</option>
-    <option value="pickup">Pickup</option>
-    <option value="rizz">Rizz</option>
-  </select>
 </div>
 
 <script>
-// Better, savage yet funny roasts
-const roasts = [
+// Array of harsh yet funny comebacks
+const comebacks = [
+"Wow… did you rehearse that, or did it just hurt to speak?",
+"Is that all you got? My grandma insults better.",
+"Congratulations! You’ve just made me laugh… at you.",
 "You're like a cloud. When you disappear, it's a beautiful day.",
-"You're proof that even mistakes can reproduce themselves.",
-"You're like a software update no one asked for.",
-"You're the human version of a typo.",
-"You're about as useful as a chocolate teapot.",
-"You're like a Wi-Fi signal in the middle of nowhere.",
-"If laughter is medicine, your face must be curing diseases.",
-"You're the reason they put instructions on shampoo.",
-"You have something on your chin… no, the third one down.",
-"You're like a cloud without a silver lining.",
-"You're like a phone with no battery—completely useless.",
-"You're the human equivalent of a participation award.",
+"I’d agree with you, but then we’d both be wrong.",
+"Some drink from the fountain of knowledge; you only gargled.",
+"If I wanted a comeback from someone useless, I’d call you.",
+"You have something on your face… oh wait, it’s just arrogance.",
 "You bring joy… when you leave the room.",
-"You're like a broken pencil… pointless.",
-"You're as sharp as a marble.",
-"You're proof that even nature takes coffee breaks.",
-"You're like a GPS that always leads to nowhere.",
-"You're like rain on a parade.",
+"You're as sharp as a marble, and twice as pointless.",
+"You're proof that even mistakes can reproduce themselves.",
+"You're the human version of a typo.",
+"Your family tree must be a cactus because everyone on it is a prick.",
+"You're like a Wi-Fi with 1% signal: barely useful.",
+"You're the reason we have instructions on shampoo.",
 "You're like decaf coffee: disappointing.",
-"You're like spaghetti without sauce—bland.",
-"You're like a broken mirror—reflecting nothing good.",
-"You're like a light switch that does nothing.",
-"You're like toast burnt on both sides.",
-"You're like a sandwich without filling.",
-"You're like a joke that nobody laughs at.",
-"You're like a shoe that doesn't fit.",
-"You're like a mirror that lies to everyone.",
-"You're like a clock that runs backwards.",
-"You're like a door that won't open.",
-"You're like a pillow that's too hard.",
-"You're like a chair with three legs.",
-"You're like a song stuck on repeat.",
-"You're like a fire alarm that never goes off.",
-"You're like a cloud blocking the sun.",
-"You're like a car without an engine.",
-"You're like a plant that refuses to grow.",
-"You're like a cookie with no chocolate.",
-"You're like an app that crashes every time.",
-"You're like a shadow, but less helpful.",
-"You're like a soda that's gone flat.",
-"You're like a pen that doesn't write.",
-"You're like a ship without a sail.",
-"You're like a story with missing pages.",
-"You're like a candle without wax.",
-"You're like a shoe missing a lace.",
-"You're like a pillow full of rocks.",
-"You're like a sandwich with expired bread.",
-"You're like a joke that hurts more than it amuses.",
-"You're like a computer that freezes every minute.",
-"You're like socks with holes… everywhere."
+"You're about as necessary as a screen door on a submarine.",
+"You're like a sandwich with no filling… bland and sad.",
+"If brains were dynamite, you wouldn’t have enough to blow your hat off.",
+"You're like a shadow, but even less helpful.",
+"You're like a broken pencil… completely pointless.",
+"You're like a cloud blocking the sun… depressing.",
+"You're like rain on a parade… nobody asked for it.",
+"You're like spaghetti without sauce… bland and sad.",
+"You're like a song stuck on repeat… annoying.",
+"You're like a chair with three legs… unstable and weak.",
+"You're like a fire alarm that never goes off… pointless.",
+"You're like a cookie with no chocolate… disappointing.",
+"You're like a mirror that never reflects truth… fake.",
+"You're like a car without an engine… going nowhere.",
+"You're like socks with holes… everywhere.",
+"If ignorance is bliss, you must be ecstatic.",
+"You're like a broken app… crashes all the time.",
+"You're like a door that won't open… stuck in life.",
+"You're like a candle without wax… useless.",
+"You're like a ship without a sail… going nowhere slowly.",
+"You're like toast burnt on both sides… bitter.",
+"You're like a cloud without a silver lining… sad.",
+"You're like a pillow full of rocks… uncomfortable for everyone.",
+"You're like a keyboard missing keys… frustrating.",
+"You're like a story with missing pages… confusing and incomplete.",
+"You're like a mirror that lies to everyone… fake.",
+"You're like a clock that runs backwards… confusing.",
+"You're like a fire that never starts… pointless.",
+"You're like a plant that refuses to grow… stagnant.",
+"You're like a phone with no signal… ignored by everyone.",
+"You're like a light switch that does nothing… useless.",
+"You're like a Wi-Fi that always drops… unreliable.",
+"You're like decaf tea… nobody asked for you.",
+"You're like a cloud that never moves… boring.",
+"You're like a song that skips… irritating.",
+"You're like a sponge with holes… absorbs nothing.",
+"You're like a beach without sand… incomplete."
 ];
 
-// Pickups and Rizz remain similar (50 each, can add more)
-const pickups = ["Are you a magician? Because whenever I look at you, everyone else disappears.", "Do you have a map? I keep getting lost in your eyes.", "Are you a parking ticket? Because you've got 'FINE' written all over you."];
-const rizz = ["You must be Wi-Fi, because I'm feeling a connection.", "Are you French? Because 'Eiffel' for you.", "If you were a vegetable, you'd be a cute-cumber."];
+// Track used comebacks to avoid repeats
+let used = [];
 
-// Track used lines
-let usedLines = { roast: [], pickup: [], rizz: [] };
-
-function getRandomLine(cat) {
-  let lines = { roast: roasts, pickup: pickups, rizz: rizz }[cat];
-  let used = usedLines[cat];
-  if(used.length === lines.length) usedLines[cat] = used = [];
-  const unused = lines.filter(l => !used.includes(l));
-  const choice = unused[Math.floor(Math.random() * unused.length)];
-  used.push(choice);
-  return choice;
+// Generate a roast based on input
+function generateRoast() {
+    const input = document.getElementById('enemyInput').value.trim();
+    if(!input) {
+        alert("Please type what they said!");
+        return;
+    }
+    if(used.length === comebacks.length) used = [];
+    const unused = comebacks.filter(c => !used.includes(c));
+    const choice = unused[Math.floor(Math.random() * unused.length)];
+    used.push(choice);
+    const display = document.getElementById('roastDisplay');
+    display.style.opacity = 0;
+    setTimeout(() => {
+        display.textContent = `"${input}"? ${choice}`;
+        display.style.opacity = 1;
+    }, 200);
 }
 
-// Generate new line with fade effect
-const lineDisplay = document.getElementById('lineDisplay');
-const generateBtn = document.getElementById('generateBtn');
-generateBtn.addEventListener('click', () => {
-  lineDisplay.style.opacity = 0;
-  setTimeout(() => {
-    lineDisplay.textContent = getRandomLine(document.getElementById('category').value);
-    lineDisplay.style.opacity = 1;
-  }, 200);
-});
-
-// Copy line to clipboard
+// Event listeners
+document.getElementById('generateBtn').addEventListener('click', generateRoast);
 document.getElementById('copyBtn').addEventListener('click', () => {
-  navigator.clipboard.writeText(lineDisplay.textContent);
-  alert("Copied!");
+    const text = document.getElementById('roastDisplay').textContent;
+    if(text) {
+        navigator.clipboard.writeText(text);
+        alert("Copied!");
+    }
 });
 
-// Inline Service Worker
-if ('serviceWorker' in navigator) {
-  const swBlob = new Blob([`
-    const CACHE_NAME = 'roast-rizz-cache-v1';
-    const urlsToCache = ['.'];
-    self.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(urlsToCache))));
-    self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
-  `], { type: 'application/javascript' });
-  navigator.serviceWorker.register(URL.createObjectURL(swBlob));
+// Inline service worker for offline PWA
+if('serviceWorker' in navigator) {
+    const swBlob = new Blob([`
+        const CACHE_NAME = 'roast-bot-cache-v1';
+        const urlsToCache = ['.'];
+        self.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(urlsToCache))));
+        self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
+    `], { type: 'application/javascript' });
+    navigator.serviceWorker.register(URL.createObjectURL(swBlob));
 }
 </script>
 </body>
